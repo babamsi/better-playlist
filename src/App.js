@@ -10,20 +10,16 @@ const fakeServerData = {
     name: 'Suhayb',
     playlists: [
       {
-        name: 'Caafimaad',
-        lessons: [{name: 'cycology', duration: 2334}, { name:'physiology', duration: 924}]
-      },
-      {
         name: 'Chemistry',
         lessons: [{name: 'Form1', duration: 733}, {name: 'Form2', duration: 3364}, {name: 'Form3', duration: 7634}, {name:'Form4', duration: 2374}]
       },
       {
         name: 'Biology',
-        lessons: [{name:'Fom3', duration: 934}, {name: 'Form4', duration: 1143}]
+        lessons: [{name: 'Form1',duration: 983},{name: 'Form2', duration: 834},{name:'Form3', duration: 934}, {name: 'Form4', duration: 1143}]
       },
       {
         name: 'Math',
-        lessons: [{name:'Fom2', duration: 2387}, {name:'Form3', duration: 2439}, {name:'Form4', duration: 29342}]
+        lessons: [{name: 'Form1', duration: 934},{name:'Form2', duration: 2387}, {name:'Form3', duration: 2439}, {name:'Form4', duration: 29342}]
       },
       {
         name: 'Physics',
@@ -71,21 +67,19 @@ class Filter extends Component {
 }
 
 class Playlist extends Component {
+  
   render() {
+    let playlist = this.props.playlist;
     return (
       <div style={{...defaultStyle, display: 'inline-block', width: '25%'}}>
       <img />
-      <h3>Playlist</h3>
+      <h3>{playlist.name}</h3>
       <ul>
-      <li>
-      Song1
-      </li>
-      <li>
-      Song2
-      </li>
-      <li>
-      Song3
-      </li>
+      {
+        playlist.lessons.map(lesson => 
+          <li>{lesson.name}</li>
+        )
+      }
       </ul>
       </div>
     );
@@ -123,10 +117,13 @@ componentDidMount() {
         
       
        <Filter />
-       <Playlist />
-       <Playlist />
-       <Playlist />
-       <Playlist />
+       {
+         this.state.serverData.user.playlists.map(playlist => 
+          <Playlist playlist={playlist}/>
+         )
+       }
+       
+       
        </div>: <h1>Loading....</h1>
        }
       </div>
